@@ -67,9 +67,9 @@ public class ClienteServiceImpl implements ClienteService {
         return objectMapper.convertValue(clienteEntity, ClienteDTO.class);
     }
 
-    private List<ClienteDTO> getClientesDTO(List<ClienteEntity> clientesEntities) {
+    private List<ClienteDTO> getClientesDTO(List<ClienteEntity> clientesEntity) {
         List<ClienteDTO> clientesDTO = new ArrayList<>();
-        clientesEntities.forEach(c -> clientesDTO.add(getClienteDTO(c)));
+        clientesEntity.forEach(c -> clientesDTO.add(getClienteDTO(c)));
         return clientesDTO;
     }
 }
