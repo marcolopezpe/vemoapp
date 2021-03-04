@@ -1,0 +1,143 @@
+--
+-- TABLES
+--
+CREATE TABLE CLIENTE
+(
+    ID               NUMBER(38) not null
+        constraint CLIENTE_PK
+        primary key,
+    RAZON_SOCIAL     VARCHAR2(200),
+    TIPO_DOCUMENTO   VARCHAR2(15),
+    NUMERO_DOCUMENTO VARCHAR2(20),
+    DIRECCION        VARCHAR2(500),
+NOMBRE_CONTACTO  VARCHAR2(100),
+EMAIL_CONTACTO   VARCHAR2(100),
+ESTADO           NUMBER(1)
+);
+
+CREATE TABLE COMPROBANTE
+(
+    ID         NUMBER(38) not null
+        constraint COMPROBANTE_PK
+        primary key,
+    SERIE      VARCHAR2(10),
+    NUMERO     VARCHAR2(20),
+    CLIENTE_ID NUMBER(38)
+        constraint COMPROBANTE_CLIENTE_ID_FK
+        references CLIENTE,
+    ESTADO     NUMBER(38),
+    FECHA      DATE
+);
+
+CREATE TABLE USUARIO
+(
+    ID         NUMBER(38) not null
+        constraint USUARIO_PK
+        primary key,
+    NOMBRES    VARCHAR2(100),
+    APELLIDOS  VARCHAR2(100),
+    USUARIO    VARCHAR2(50),
+    CONTRASENA VARCHAR2(60),
+    ESTADO     NUMBER(38)
+);
+
+CREATE TABLE UNIDAD_MEDIDA
+(
+    ID     NUMBER(38) not null
+        constraint UNIDAD_MEDIDA_PK
+        primary key,
+    NOMBRE VARCHAR2(100),
+    ESTADO NUMBER(38)
+);
+
+CREATE TABLE ARTICULO
+(
+    ID               NUMBER(38) not null
+        constraint ARTICULO_PK
+        primary key,
+    CODIGO           VARCHAR2(20),
+    DESCRIPCION      VARCHAR2(200),
+    UNIDAD_MEDIDA_ID NUMBER(38)
+        constraint ARTICULO_UNIDAD_MEDIDA_ID_FK
+        references UNIDAD_MEDIDA,
+    ESTADO           NUMBER(38)
+);
+
+CREATE TABLE COMPROBANTE_DETALLE
+(
+    ID              NUMBER(38) not null
+        constraint COMPROBANTE_DETALLE_PK
+        primary key,
+    ARTICULO_ID     NUMBER(38)
+        constraint COMPROBANTE_DETALLE_ARTICULO_ID_FK
+        references ARTICULO,
+    PRECIO_UNITARIO NUMBER(12, 3),
+    CANTIDAD        NUMBER(38),
+    KILOS           NUMBER(12, 3),
+    ESTADO          NUMBER(38),
+    COMPROBANTE_ID  NUMBER
+        constraint COMPROBANTE_DETALLE_COMPROBANTE_ID_FK
+            references COMPROBANTE
+);
+
+CREATE TABLE ROL
+(
+    ID     NUMBER(38) not null
+        constraint ROL_PK
+        primary key,
+    NOMBRE VARCHAR2(50),
+    ESTADO NUMBER(38)
+);
+
+CREATE TABLE USUARIO_ROL
+(
+    USUARIO_ID NUMBER(38) not null
+        constraint USUARIO_ROL_USUARIO_ID_FK
+        references USUARIO,
+    ROL_ID     NUMBER(38) not null
+        constraint USUARIO_ROL_ROL_ID_FK
+        references ROL,
+    constraint USUARIO_ROL_PK
+        primary key (USUARIO_ID, ROL_ID)
+);
+
+CREATE TABLE MOVIMIENTO
+(
+    ID          NUMBER not null
+        constraint MOVIMIENTO_PK
+            primary key,
+    ARTICULO_ID NUMBER
+        constraint MOVIMIENTO_ARTICULO_ID_FK
+            references ARTICULO,
+    TIPO        CHAR,
+    CANTIDAD    NUMBER,
+    KILOS       NUMBER(12, 3),
+    ESTADO      NUMBER,
+    FECHA       DATE
+);
+
+
+--
+-- SEQUENCES
+--
+create sequence SEQ_ARTICULO;
+create sequence SEQ_CLIENTE;
+create sequence SEQ_COMPROBANTE;
+create sequence SEQ_COMPROBANTE_DETALLE;
+create sequence SEQ_MOVIMIENTO;
+create sequence SEQ_ROL;
+create sequence SEQ_UNIDAD_MEDIDA;
+create sequence SEQ_USUARIO;
+
+
+--
+-- DATA
+--
+INSERT INTO CLIENTE (ID, RAZON_SOCIAL, TIPO_DOCUMENTO, NUMERO_DOCUMENTO, DIRECCION, NOMBRE_CONTACTO, EMAIL_CONTACTO, ESTADO) VALUES (SEQ_CLIENTE.nextval, 'MARCO ANTONIO LÓPEZ CAMACHO', 'DNI', '46491904', 'SAN JUAN DE MIRAFLORES', 'MARCO LOPEZ', 'MARCOLOPEZPE@OUTLOOK.COM', 1);
+INSERT INTO CLIENTE (ID, RAZON_SOCIAL, TIPO_DOCUMENTO, NUMERO_DOCUMENTO, DIRECCION, NOMBRE_CONTACTO, EMAIL_CONTACTO, ESTADO) VALUES (SEQ_CLIENTE.nextval, 'AVIVEL SAC', 'RUC', '20999999999', 'PACHACAMAC', 'EDUARDO HERRERA', 'EDUARDO@AVIVEL.COM', 1);
+INSERT INTO CLIENTE (ID, RAZON_SOCIAL, TIPO_DOCUMENTO, NUMERO_DOCUMENTO, DIRECCION, NOMBRE_CONTACTO, EMAIL_CONTACTO, ESTADO) VALUES (SEQ_CLIENTE.nextval, 'GALAXY TRAINING SAC', 'RUC', '20888888888', 'LIMA CENTRO', 'ARISTEDES NOVOA', 'ANOVOA@GALAXY.COM', 1);
+
+
+COMMIT;
+
+
