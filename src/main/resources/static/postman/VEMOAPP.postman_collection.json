@@ -1,0 +1,460 @@
+{
+	"info": {
+		"_postman_id": "b7f8bac4-4b25-47fc-aa06-7dd5e493c1cc",
+		"name": "VEMOAPP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CLIENTE",
+			"item": [
+				{
+					"name": "GET ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8888/vemoapp-api/clientes/v1",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"vemoapp-api",
+								"clientes",
+								"v1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FIND BY ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8888/vemoapp-api/clientes/v1/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"vemoapp-api",
+								"clientes",
+								"v1",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "INSERT",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"estado\": 1,\n        \"razonSocial\": \"AVIVEL SAC\",\n        \"tipoDocumento\": \"RUC\",\n        \"numeroDocumento\": \"20999999999\",\n        \"direccion\": \"PACHACAMAC\",\n        \"nombreContacto\": \"EDUARDO HERRERA\",\n        \"emailContacto\": \"EDUARDO@AVIVEL.COM\"\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8888/vemoapp-api/clientes/v1",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"vemoapp-api",
+								"clientes",
+								"v1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"estado\": 1,\n        \"razonSocial\": \"GALAXY TRAINING SAC\",\n        \"tipoDocumento\": \"RUC\",\n        \"numeroDocumento\": \"20888888888\",\n        \"direccion\": \"LIMA CENTRO\",\n        \"nombreContacto\": \"ARISTEDES NOVOA\",\n        \"emailContacto\": \"ANOVOA@GALAXY.COM\"\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8888/vemoapp-api/clientes/v1/10",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"vemoapp-api",
+								"clientes",
+								"v1",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8888/vemoapp-api/clientes/v1/10",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"vemoapp-api",
+								"clientes",
+								"v1",
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MOVIMIENTO",
+			"item": [
+				{
+					"name": "GET ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8888/vemoapp-api/movimientos/v1",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"vemoapp-api",
+								"movimientos",
+								"v1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FIND BY ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8888/vemoapp-api/movimientos/v1/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"vemoapp-api",
+								"movimientos",
+								"v1",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "INSERT",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"codigo\": \"HUEPX60\",\n    \"descripcion\": \"HUEVOS PAQUETE X 60\",\n    \"unidadMedida\": {\n        \"id\": 1\n    },\n    \"estado\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8888/vemoapp-api/articulos/v1",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"vemoapp-api",
+								"articulos",
+								"v1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ARTICULO",
+			"item": [
+				{
+					"name": "GET ALL BY FINAL STOCKS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8888/vemoapp-api/articulos/v1/final-stocks",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"vemoapp-api",
+								"articulos",
+								"v1",
+								"final-stocks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8888/vemoapp-api/articulos/v1",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"vemoapp-api",
+								"articulos",
+								"v1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FIND BY ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8888/vemoapp-api/articulos/v1/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"vemoapp-api",
+								"articulos",
+								"v1",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "INSERT",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tipo\": \"S\",\n    \"cantidad\": 3,\n\t\"kilos\": 33.75,\n    \"articulo\": {\n        \"id\": 3\n    },\n\t\"fecha\": \"2021-03-04\",\n    \"estado\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8888/vemoapp-api/movimientos/v1",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"vemoapp-api",
+								"movimientos",
+								"v1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"codigo\": \"HUECOMG\",\n    \"descripcion\": \"HUEVO COMERCIAL GRANDE\",\n    \"unidadMedida\": {\n        \"id\": 2\n    },\n    \"estado\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8888/vemoapp-api/articulos/v1/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"vemoapp-api",
+								"articulos",
+								"v1",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8888/vemoapp-api/articulos/v1/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"vemoapp-api",
+								"articulos",
+								"v1",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "COMPROBANTE",
+			"item": [
+				{
+					"name": "FIND BY ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8888/vemoapp-api/comprobantes/v1/5",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"vemoapp-api",
+								"comprobantes",
+								"v1",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "INSERT",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"serie\": \"B013\",\n\t\"numero\": \"0000002\",\n\t\"cliente\": {\n\t\t\"id\": 1\n\t},\n\t\"fecha\": \"2021-03-04\",\n\t\"detalles\": [\n\t\t{\n\t\t\t\"articulo\": {\n\t\t\t\t\"id\": 3\n\t\t\t},\n\t\t\t\"precioUnitario\": 55.00,\n\t\t\t\"cantidad\": 1,\n\t\t\t\"kilos\": 11.25,\n\t\t\t\"estado\": 1\n\t\t}\n\t],\n\t\"estado\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8888/vemoapp-api/comprobantes/v1",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"vemoapp-api",
+								"comprobantes",
+								"v1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8888/vemoapp-api/comprobantes/v1/5",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"vemoapp-api",
+								"comprobantes",
+								"v1",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
