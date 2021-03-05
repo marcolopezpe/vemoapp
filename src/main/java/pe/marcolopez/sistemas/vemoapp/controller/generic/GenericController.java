@@ -81,6 +81,19 @@ public abstract class GenericController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseAPI);
     }
 
+    protected ResponseEntity<ResponseAPI> getNoContentRequest() {
+        ResponseAPI responseAPI = ResponseAPI.builder()
+                .apiVersion(apiVersion)
+                .status(ResponseStatus.builder()
+                        .code(ResponseEnum.WARNING)
+                        .message(ResponseMessage.MESSAGE_REQUEST_NO_CONTENT)
+                        .status(HttpStatus.NO_CONTENT.value())
+                        .error(HttpStatus.NO_CONTENT.name())
+                        .build())
+                .build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(responseAPI);
+    }
+
     protected ResponseEntity<ResponseAPI> getCreatedRequest(Object o) {
         ResponseAPI responseAPI = ResponseAPI.builder()
                 .apiVersion(apiVersion)

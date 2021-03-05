@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pe.marcolopez.sistemas.vemoapp.dto.venta.ArticuloDTO;
+import pe.marcolopez.sistemas.vemoapp.dto.venta.ArticuloStockDTO;
 import pe.marcolopez.sistemas.vemoapp.entity.venta.ArticuloEntity;
 import pe.marcolopez.sistemas.vemoapp.repository.venta.ArticuloRepository;
 import pe.marcolopez.sistemas.vemoapp.service.exception.ServiceException;
 import pe.marcolopez.sistemas.vemoapp.service.venta.inf.ArticuloService;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,6 +67,11 @@ public class ArticuloServiceImpl implements ArticuloService {
         return null;
     }
 
+    @Override
+    public List<ArticuloStockDTO> getByFinalStocks() throws ServiceException {
+        return getArticulosFinalStocks(articuloRepository.findByFinalStocks());
+    }
+
     private ArticuloDTO getArticuloDTO(ArticuloEntity articuloEntity) {
         return objectMapper.convertValue(articuloEntity, ArticuloDTO.class);
     }
@@ -74,4 +81,18 @@ public class ArticuloServiceImpl implements ArticuloService {
         articulosEntity.forEach(a -> articulosDTO.add(getArticuloDTO(a)));
         return articulosDTO;
     }
+
+    private List<ArticuloStockDTO> getArticulosFinalStocks(List<Object[]> objects) {
+        List<ArticuloStockDTO> articulosStockDTO = new ArrayList<>();
+        objects.forEach(o -> {
+            ArticuloStockDTO articuloStockDTO = new ArticuloStockDTO();
+            articuloStockDTO.setArticulo(getArticuloDTO(articuloRepository.findById((Long) o[0]).orElse(null)));
+            articuloStockDTO.setCantidad(Integer.parseInt(o[1].toString()));
+            articuloStockDTO.setKilos(new BigDecimal(o[2].toString()));
+            articulosStockDTO.add(articuloStockDTO);
+        });
+        return articulosStockDTO;
+    }
+
+
 }

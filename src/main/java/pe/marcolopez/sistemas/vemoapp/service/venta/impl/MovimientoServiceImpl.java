@@ -6,12 +6,15 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pe.marcolopez.sistemas.vemoapp.dto.venta.ArticuloStockDTO;
 import pe.marcolopez.sistemas.vemoapp.dto.venta.MovimientoDTO;
 import pe.marcolopez.sistemas.vemoapp.entity.venta.MovimientoEntity;
+import pe.marcolopez.sistemas.vemoapp.repository.venta.ArticuloRepository;
 import pe.marcolopez.sistemas.vemoapp.repository.venta.MovimientoRepository;
 import pe.marcolopez.sistemas.vemoapp.service.exception.ServiceException;
 import pe.marcolopez.sistemas.vemoapp.service.venta.inf.MovimientoService;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,11 +23,13 @@ import java.util.List;
 public class MovimientoServiceImpl implements MovimientoService {
 
     private final MovimientoRepository movimientoRepository;
+    private final ArticuloRepository articuloRepository;
     private final ObjectMapper objectMapper;
 
     @Autowired
-    public MovimientoServiceImpl(MovimientoRepository movimientoRepository, ObjectMapper objectMapper) {
+    public MovimientoServiceImpl(MovimientoRepository movimientoRepository, ArticuloRepository articuloRepository, ObjectMapper objectMapper) {
         this.movimientoRepository = movimientoRepository;
+        this.articuloRepository = articuloRepository;
         this.objectMapper = objectMapper;
     }
 

@@ -6,9 +6,7 @@ import pe.marcolopez.sistemas.vemoapp.dto.generic.GenericDTO;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.util.Date;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -17,25 +15,21 @@ import java.util.Date;
 @AllArgsConstructor
 @JsonPropertyOrder({
         "id",
-        "fecha",
         "articulo",
-        "tipo",
+        "precioUnitario",
         "cantidad",
         "kilos",
         "estado"})
-public class MovimientoDTO extends GenericDTO {
+public class ComprobanteDetalleDTO extends GenericDTO {
 
     private ArticuloDTO articulo;
 
-    @Size(min = 1, max = 1, message = "El Tipo es obligatorio y debe ser 1 caracter.")
-    private String tipo;
+    @NotNull(message = "El Precio Unitario es obligatorio")
+    private BigDecimal precioUnitario;
 
     @Min(value = 1, message = "La Cantidad es obligatoria y debe ser minimo 1.")
     private Integer cantidad;
 
     @NotNull(message = "Los Kilos son obligatorios")
     private BigDecimal kilos;
-
-    @NotNull(message = "La Fecha es obligatorio")
-    private Date fecha;
 }
