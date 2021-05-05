@@ -1,6 +1,5 @@
 package pe.marcolopez.sistemas.vemoapp.controller.security;
 
-import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

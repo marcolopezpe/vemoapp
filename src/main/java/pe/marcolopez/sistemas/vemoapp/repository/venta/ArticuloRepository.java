@@ -20,4 +20,8 @@ public interface ArticuloRepository extends JpaRepository<ArticuloEntity, Long> 
             "where m.estado=1 " +
             "group by m.articulo.id ")
     List<Object[]> findByFinalStocks();
+
+    // cuando, como, donde,
+    //
+
 }

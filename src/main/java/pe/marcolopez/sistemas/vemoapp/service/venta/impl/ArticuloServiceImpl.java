@@ -2,16 +2,17 @@ package pe.marcolopez.sistemas.vemoapp.service.venta.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pe.marcolopez.sistemas.vemoapp.dto.venta.ArticuloDTO;
 import pe.marcolopez.sistemas.vemoapp.dto.venta.ArticuloStockDTO;
 import pe.marcolopez.sistemas.vemoapp.entity.venta.ArticuloEntity;
+import pe.marcolopez.sistemas.vemoapp.entity.venta.UnidadMedidaEntity;
 import pe.marcolopez.sistemas.vemoapp.repository.venta.ArticuloRepository;
 import pe.marcolopez.sistemas.vemoapp.service.exception.ServiceException;
 import pe.marcolopez.sistemas.vemoapp.service.venta.inf.ArticuloService;
+import pe.marcolopez.sistemas.vemoapp.util.PropUtil;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -52,7 +53,13 @@ public class ArticuloServiceImpl implements ArticuloService {
     public ArticuloDTO update(ArticuloDTO articuloDTO) throws ServiceException {
         ArticuloEntity articuloEntity = articuloRepository.findById(articuloDTO.getId()).orElse(null);
         assert articuloEntity != null;
-        BeanUtils.copyProperties(articuloDTO, articuloEntity);
+
+        PropUtil.copyProperties(articuloDTO, articuloEntity);
+
+        UnidadMedidaEntity unidadMedidaEntity = new UnidadMedidaEntity();
+        PropUtil.copyProperties(articuloDTO.getUnidadMedida(), unidadMedidaEntity);
+        articuloEntity.setUnidadMedida(unidadMedidaEntity);
+
         return getArticuloDTO(articuloRepository.save(articuloEntity));
     }
 
@@ -68,7 +75,7 @@ public class ArticuloServiceImpl implements ArticuloService {
     }
 
     @Override
-    public List<ArticuloStockDTO> getByFinalStocks() throws ServiceException {
+    public List<ArticuloStockDTO> getByFinalStocks() {
         return getArticulosFinalStocks(articuloRepository.findByFinalStocks());
     }
 

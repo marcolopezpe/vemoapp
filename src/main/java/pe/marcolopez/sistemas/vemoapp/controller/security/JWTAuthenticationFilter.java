@@ -49,7 +49,12 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         byte[] signingKey = ConstantsSecurity.SUPER_SECRET_KEY.getBytes(StandardCharsets.UTF_8);
 
+        /*User user = ((User) authResult.getPrincipal());
+        Claims claims = Jwts.claims().setSubject(user.getUsername());
+        claims.put("usuario", user.getUsername());*/
+
         String token = Jwts.builder()
+                //.setClaims(claims)
                 .setIssuedAt(new Date())
                 .setIssuer(ConstantsSecurity.ISSUER_INFO)
                 .setSubject(((User) authResult.getPrincipal()).getUsername())
@@ -57,7 +62,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .signWith(SignatureAlgorithm.HS512, signingKey)
                 .compact();
 
-        response.addHeader("Access-Control-Expose-Headers", "Authorizatoin");
-        response.addHeader(ConstantsSecurity.HEADER_AUTHORIZATION_KEY, ConstantsSecurity.TOKEN_BEARER_PREFIX + " " + token);
+        response.addHeader("Access-Control-Expose-Headers", "Authorization");
+        response.addHeader(ConstantsSecurity.HEADER_AUTHORIZATION_KEY, ConstantsSecurity.TOKEN_BEARER_PREFIX + token);
     }
 }

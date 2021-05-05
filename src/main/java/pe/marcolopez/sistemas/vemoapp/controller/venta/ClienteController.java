@@ -16,7 +16,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("clientes/v1")
+@RequestMapping("/clientes/v1")
 public class ClienteController extends GenericController {
 
     private final ClienteService clienteService;
@@ -74,7 +74,7 @@ public class ClienteController extends GenericController {
         }
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ResponseAPI> update(@PathVariable Long id,
                                               @Validated @RequestBody ClienteDTO clienteDTO,
                                               BindingResult result) {
