@@ -2,20 +2,20 @@ package pe.marcolopez.sistemas.vemoapp.service.venta.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pe.marcolopez.sistemas.vemoapp.dto.venta.ArticuloStockDTO;
 import pe.marcolopez.sistemas.vemoapp.dto.venta.MovimientoDTO;
+import pe.marcolopez.sistemas.vemoapp.entity.venta.ArticuloEntity;
 import pe.marcolopez.sistemas.vemoapp.entity.venta.MovimientoEntity;
 import pe.marcolopez.sistemas.vemoapp.repository.venta.ArticuloRepository;
 import pe.marcolopez.sistemas.vemoapp.repository.venta.MovimientoRepository;
 import pe.marcolopez.sistemas.vemoapp.service.exception.ServiceException;
 import pe.marcolopez.sistemas.vemoapp.service.venta.inf.MovimientoService;
+import pe.marcolopez.sistemas.vemoapp.util.Util;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -39,6 +39,11 @@ public class MovimientoServiceImpl implements MovimientoService {
     }
 
     @Override
+    public List<MovimientoDTO> getMovimientosByFiltro(Date desde, Date hasta, String descripcion, String tipo) {
+        return getMovimientosDTO(movimientoRepository.findAllByFiltro(desde, hasta, descripcion, tipo));
+    }
+
+    @Override
     public MovimientoDTO findById(Long id) throws ServiceException {
         return getMovimientoDTO(movimientoRepository.findById(id).orElse(null));
     }
@@ -55,7 +60,12 @@ public class MovimientoServiceImpl implements MovimientoService {
     public MovimientoDTO update(MovimientoDTO movimientoDTO) throws ServiceException {
         MovimientoEntity movimientoEntity = movimientoRepository.findById(movimientoDTO.getId()).orElse(null);
         assert movimientoEntity != null;
-        BeanUtils.copyProperties(movimientoDTO, movimientoEntity);
+        Util.copyProperties(movimientoDTO, movimientoEntity);
+
+        ArticuloEntity articuloEntity = new ArticuloEntity();
+        Util.copyProperties(movimientoDTO.getArticulo(), articuloEntity);
+        movimientoEntity.setArticulo(articuloEntity);
+
         return getMovimientoDTO(movimientoRepository.save(movimientoEntity));
     }
 

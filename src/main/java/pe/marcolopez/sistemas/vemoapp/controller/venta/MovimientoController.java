@@ -11,6 +11,7 @@ import pe.marcolopez.sistemas.vemoapp.controller.generic.GenericController;
 import pe.marcolopez.sistemas.vemoapp.dto.venta.MovimientoDTO;
 import pe.marcolopez.sistemas.vemoapp.service.exception.ServiceException;
 import pe.marcolopez.sistemas.vemoapp.service.venta.inf.MovimientoService;
+import pe.marcolopez.sistemas.vemoapp.util.Util;
 
 import java.util.List;
 
@@ -30,6 +31,28 @@ public class MovimientoController extends GenericController {
     public ResponseEntity<ResponseAPI> getMovimientos() {
         try {
             List<MovimientoDTO> movimientosDTO = movimientoService.getAll();
+            if (movimientosDTO.isEmpty()) {
+                return getNotFoundRequest();
+            }
+            return getSuccessRequest(movimientosDTO);
+        } catch (ServiceException e) {
+            log.error(e.getMessage());
+            return getErrorRequest();
+        }
+    }
+
+    @GetMapping("filtro")
+    public ResponseEntity<ResponseAPI> getMovimientosByFiltro(@RequestParam Long desde,
+                                                              @RequestParam Long hasta,
+                                                              @RequestParam String descripcion,
+                                                              @RequestParam String tipo) {
+        try {
+            List<MovimientoDTO> movimientosDTO = movimientoService.getMovimientosByFiltro(
+                    Util.extractDate(desde),
+                    Util.extractDate(hasta),
+                    descripcion,
+                    tipo);
+
             if (movimientosDTO.isEmpty()) {
                 return getNotFoundRequest();
             }
