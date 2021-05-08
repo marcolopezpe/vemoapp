@@ -53,7 +53,6 @@ public class ArticuloServiceImpl implements ArticuloService {
     public ArticuloDTO update(ArticuloDTO articuloDTO) throws ServiceException {
         ArticuloEntity articuloEntity = articuloRepository.findById(articuloDTO.getId()).orElse(null);
         assert articuloEntity != null;
-
         Util.copyProperties(articuloDTO, articuloEntity);
 
         UnidadMedidaEntity unidadMedidaEntity = new UnidadMedidaEntity();
