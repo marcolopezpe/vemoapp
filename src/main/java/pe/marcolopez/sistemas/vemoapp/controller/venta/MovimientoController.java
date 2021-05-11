@@ -51,7 +51,8 @@ public class MovimientoController extends GenericController {
                     Util.extractDate(desde),
                     Util.extractDate(hasta),
                     descripcion,
-                    tipo);
+                    tipo
+            );
 
             if (movimientosDTO.isEmpty()) {
                 return getNotFoundRequest();

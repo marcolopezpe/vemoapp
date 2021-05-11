@@ -31,11 +31,13 @@ public class MovimientoDTO extends GenericDTO {
     private String tipo;
 
     @Min(value = 1, message = "La Cantidad es obligatoria y debe ser minimo 1.")
-    private Integer cantidad;
+    private BigDecimal cantidad;
 
     @NotNull(message = "Los Kilos son obligatorios")
     private BigDecimal kilos;
 
     @NotNull(message = "La Fecha es obligatorio")
     private Date fecha;
+
+    private String comprobanteNumero;
 }

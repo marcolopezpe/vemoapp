@@ -1,21 +1,20 @@
 package pe.marcolopez.sistemas.vemoapp.entity.venta;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
+import org.hibernate.annotations.Where;
 import pe.marcolopez.sistemas.vemoapp.entity.generic.GenericEntity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = false)
 @Data
 @Builder
 @Entity(name = "Comprobante")
 @Table(name = "COMPROBANTE")
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
 public class ComprobanteEntity extends GenericEntity {
 
     @Id
@@ -23,6 +22,7 @@ public class ComprobanteEntity extends GenericEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqComprobante")
     @SequenceGenerator(name = "seqComprobante", allocationSize = 1, sequenceName = "SEQ_COMPROBANTE")
     @Builder.Default
+    @EqualsAndHashCode.Include
     private Long id = 0L;
 
     @Column(name = "SERIE")
@@ -37,11 +37,7 @@ public class ComprobanteEntity extends GenericEntity {
     @Column(name = "FECHA")
     private Date fecha;
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            mappedBy = "comprobante",
-            targetEntity = ComprobanteDetalleEntity.class)
-    @JsonManagedReference
-    private List<ComprobanteDetalleEntity> detalles = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "comprobante")
+    @Where(clause = "estado=1")
+    private List<ComprobanteDetalleEntity> detalles;
 }

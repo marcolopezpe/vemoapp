@@ -11,6 +11,7 @@ import pe.marcolopez.sistemas.vemoapp.controller.generic.GenericController;
 import pe.marcolopez.sistemas.vemoapp.dto.venta.ComprobanteDTO;
 import pe.marcolopez.sistemas.vemoapp.service.exception.ServiceException;
 import pe.marcolopez.sistemas.vemoapp.service.venta.inf.ComprobanteService;
+import pe.marcolopez.sistemas.vemoapp.util.Util;
 
 import java.util.List;
 
@@ -33,6 +34,30 @@ public class ComprobanteController extends GenericController {
             if (comprobantesDTO.isEmpty()) {
                 return getNotFoundRequest();
             }
+            return getSuccessRequest(comprobantesDTO);
+        } catch (ServiceException e) {
+            log.error(e.getMessage());
+            return getErrorRequest();
+        }
+    }
+
+    @GetMapping("filtro")
+    public ResponseEntity<ResponseAPI> getComprobantesByFiltro(@RequestParam Long desde,
+                                                               @RequestParam Long hasta,
+                                                               @RequestParam String numero,
+                                                               @RequestParam String cliente) {
+        try {
+            List<ComprobanteDTO> comprobantesDTO = comprobanteService.getComprobantesByFiltro(
+                    Util.extractDate(desde),
+                    Util.extractDate(hasta),
+                    numero,
+                    cliente
+            );
+
+            if (comprobantesDTO.isEmpty()) {
+                return getNotFoundRequest();
+            }
+
             return getSuccessRequest(comprobantesDTO);
         } catch (ServiceException e) {
             log.error(e.getMessage());
@@ -66,6 +91,25 @@ public class ComprobanteController extends GenericController {
             ComprobanteDTO comprobanteCreated = comprobanteService.insert(comprobanteDTO);
             if (comprobanteCreated != null) {
                 return getCreatedRequest(comprobanteCreated);
+            }
+            return getErrorRequest();
+        } catch (ServiceException e) {
+            log.error(e.getMessage());
+            return getErrorRequest();
+        }
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<ResponseAPI> update(@PathVariable Long id,
+                                              @Validated @RequestBody ComprobanteDTO comprobanteDTO,
+                                              BindingResult result) {
+        if (result.hasErrors()) return getBadRequest(result);
+
+        comprobanteDTO.setId(id);
+        try {
+            ComprobanteDTO comprobanteUpdated = comprobanteService.update(comprobanteDTO);
+            if (comprobanteUpdated != null) {
+                return getCreatedRequest(comprobanteUpdated);
             }
             return getErrorRequest();
         } catch (ServiceException e) {
